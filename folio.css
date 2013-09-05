@@ -1,0 +1,140 @@
+@import "//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css";
+.folio {
+    position: relative;
+    overflow: hidden;
+}
+
+.folio-pane {
+    position: absolute;
+    right: -100%;
+    -webkit-transition: right 0.3s ease-in;
+    -moz-transition: right 0.3s ease-in;
+    -ms-transition: right 0.3s ease-in;
+    -o-transition: right 0.3s ease-in;
+    transition: right 0.3s ease-in;
+}
+
+.folio-pane_active {
+    right: 0;
+}
+
+.folio-vertical .folio-pane {
+    right: 0;
+    -webkit-transition: top 0.3s ease-in;
+    -moz-transition: top 0.3s ease-in;
+    -ms-transition: top 0.3s ease-in;
+    -o-transition: top 0.3s ease-in;
+    transition: top 0.3s ease-in;
+    top: -100%;
+}
+
+.folio-vertical .folio-pane_active {
+    top: 0;
+}
+
+.folio-pane_coming {
+    z-index: 1;
+}
+
+.folio-arrow {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    z-index: 10;
+    width: 10%;
+    opacity: 0;
+    color: #fff;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in;
+}
+
+.folio:hover .folio-arrow {
+    opacity: 0.6;
+}
+
+.folio .folio-arrow:hover {
+    opacity: 1;
+}
+
+.folio-arrow i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 25px;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.folio-arrow-left {
+    left: 0;
+}
+.folio-arrow-right {
+    right: 0;
+}
+
+.folio-arrow-right:hover {
+    background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(0, 0, 0, 0.0001)), to(rgba(0, 0, 0, 0.5)));
+    background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.0001) 0), color-stop(rgba(0, 0, 0, 0.5) 100%));
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.5) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.0001) 0, rgba(0, 0, 0, 0.5) 100%);
+    background-repeat: repeat-x;
+}
+
+.folio-arrow-left:hover {
+    background-image: -webkit-gradient(linear, 0 top, 100% top, from(rgba(0, 0, 0, 0.5)), to(rgba(0, 0, 0, 0.0001)));
+    background-image: -webkit-linear-gradient(left, color-stop(rgba(0, 0, 0, 0.5) 0), color-stop(rgba(0, 0, 0, 0.0001) 100%));
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-image: linear-gradient(to right, rgba(0, 0, 0, 0.5) 0, rgba(0, 0, 0, 0.0001) 100%);
+    background-repeat: repeat-x;
+}
+
+.folio-nav {
+    position: absolute;
+    left: 50%;
+    bottom: 2em;
+    background: #fff;
+    border-radius: 0.5em;
+    height: 0.3em;
+    width: 80%;
+    -webkit-transition: opacity 0.3s ease-in;
+    -moz-transition: opacity 0.3s ease-in;
+    -ms-transition: opacity 0.3s ease-in;
+    -o-transition: opacity 0.3s ease-in;
+    transition: opacity 0.3s ease-in;
+    opacity: 0;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 10;
+}
+
+.folio:hover .folio-nav {
+    opacity: 1;
+}
+
+.folio-slider {
+    position: absolute;
+    top: 50%;
+    width:  1em;
+    height: 1em;
+    border-radius: 50%;
+    -webkit-transition: left 0.3s ease-in;
+    -moz-transition: left 0.3s ease-in;
+    -ms-transition: left 0.3s ease-in;
+    -o-transition: left 0.3s ease-in;
+    transition: left 0.3s ease-in;
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    background: #FFF;
+}
