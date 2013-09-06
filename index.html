@@ -4,7 +4,8 @@
     <title>Folio.js - easy sliding!</title>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/normalize/2.1.2/normalize.css">
     <link rel="stylesheet" href="folio.css" />
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="prefixfree.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="folio.js"></script>
     <style type="text/css">
         .folio {
@@ -16,9 +17,7 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('#demo1').folio();
-            $('#demo2').folio({
-                verticalSlide: true
-            });
+            $('#demo2').folio();
         })
     </script>
 </head>
@@ -39,11 +38,12 @@
         </div>
         <div class="folio-arrow folio-arrow-right"><i class="icon-chevron-right"></i></div>
         <div class="folio-nav">
+            <div class="folio-rail"></div>
             <div class="folio-slider"></div>
         </div>
     </div>
 
-    <div class="folio" id="demo2">
+    <div class="folio folio-vertical" id="demo2">
         <div class="folio-arrow folio-arrow-left"><i class="icon-chevron-left"></i></div>
         <div class="folio-pane">
             <img src="http://lorempixel.com/640/480/cats/?1">
@@ -59,6 +59,7 @@
         </div>
         <div class="folio-arrow folio-arrow-right"><i class="icon-chevron-right"></i></div>
         <div class="folio-nav">
+            <div class="folio-rail"></div>
             <div class="folio-slider"></div>
         </div>
     </div>
