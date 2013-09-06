@@ -1,80 +1,93 @@
-$.fn.folio = function() {
-    function selectSlide(index) {
-        if(index === currentIndex) {
-            return;
-        }
-        if((index - currentIndex) > 0) {
-            for(;currentIndex !== index;currentIndex++) {
-                slides.eq(currentIndex+1).addClass(ACTIVE_CLS);
+(function($) {
+    var ACTIVE_CLS = 'folio-pane_active'
+    function Folio(element) {
+        this.slider = element.find('.folio-slider');
+        this.navbar = element.find('.folio-nav');
+        this.slides = element.find('.folio-pane');
+        this.currentIndex=0;
+
+        element.find('.folio-arrow-right').on('click', this.next.bind(this));
+        element.find('.folio-arrow-left').on('click', this.previous.bind(this));
+        this.slides.on('click', this.next.bind(this));
+        this.navbar.on('click', function(event) {
+            var slideIndex = this.getNearestSlide(
+                (event.pageX-this.navbar.offset().left)/this.navbar.width()
+            );
+            this.selectSlide(slideIndex);
+        }.bind(this));
+        this.slider.on('mousedown', this.handleDragSlider.bind(this));
+
+        this.updateSlider();
+        this.slides.eq(this.currentIndex).addClass(ACTIVE_CLS);
+    }
+    Folio.prototype = {
+        getNearestSlide: function  (point) {
+            var nearestIndex, minDist;
+            for(var index = 0; index < this.slides.length; index++) {
+                var dist = Math.abs(this.getSliderPosition(index)-point);
+                if(!minDist || dist < minDist) {
+                    minDist = dist;
+                    nearestIndex = index;
+                }
             }
-        }
-        else {
-            for(;currentIndex !== index;currentIndex--) {
-                slides.eq(currentIndex).removeClass(ACTIVE_CLS);
+            return nearestIndex;
+        },
+        getSliderPosition: function  (index) {
+            return index/(this.slides.length-1);
+        },
+        updateSlider: function  () {
+            this.slider.css('left', this.getSliderPosition(this.currentIndex)*100+"%");
+        },
+
+        handleDragSlider: function() {
+            function moveHandler(event) {
+                var pos = (event.pageX-self.navbar.offset().left)/self.navbar.width(),
+                    normedPos = Math.min(1, Math.max(0, pos));
+                self.slider.css('left', normedPos*100+'%');
             }
-        }
-        updateSlider();
-    }
-    function changeSlide(direction) {
-        var next = (slides.length + currentIndex + direction) % slides.length;
-        selectSlide(next);
-    }
-    function next() {
-        changeSlide(+1);
-    }
-    function previous() {
-        changeSlide(-1);
-    }
+            var self = this,
+                $window = $(window),
+                transition = PrefixFree.prefixCSS('transition:none').split(':');
+            this.slider.css(transition[0], transition[1]);
+            $window.on('mousemove', moveHandler);
+            $window.one('mouseup', function() {
+                var slideIndex = self.getNearestSlide(parseInt(self.slider.css('left'))/self.navbar.width());
+                self.selectSlide(slideIndex);
+                self.slider.css(transition[0], "");
+                $window.off('mousemove', moveHandler)
+            });
+        },
 
-    function getNearestSlide(point) {
-        var nearestIndex, minDist;
-        for(var index = 0; index < slides.length; index++) {
-            var dist = Math.abs(getSliderPosition(index)-point);
-            if(!minDist || dist < minDist) {
-                minDist = dist;
-                nearestIndex = index;
+        selectSlide: function(index) {
+            if(index === this.currentIndex) {
+                return;
             }
+            if((index - this.currentIndex) > 0) {
+                for(;this.currentIndex !== index;this.currentIndex++) {
+                    this.slides.eq(this.currentIndex+1).addClass(ACTIVE_CLS);
+                }
+            }
+            else {
+                for(;this.currentIndex !== index;this.currentIndex--) {
+                    this.slides.eq(this.currentIndex).removeClass(ACTIVE_CLS);
+                }
+            }
+            this.updateSlider();
+        },
+        changeSlide: function  (direction) {
+            var next = (this.slides.length + this.currentIndex + direction) % this.slides.length;
+            this.selectSlide(next);
+        },
+        next: function  () {
+            this.changeSlide(+1);
+        },
+        previous: function  () {
+            this.changeSlide(-1);
         }
-        return nearestIndex;
-    }
-
-    function getSliderPosition(index) {
-        return index/(slides.length-1);
-    }
-    function updateSlider() {
-        slider.css('left', getSliderPosition(currentIndex)*100+"%");
-    }
-
-    var ACTIVE_CLS = 'folio-pane_active',
-        currentIndex=0,
-        slider = this.find('.folio-slider'),
-        navbar = this.find('.folio-nav'),
-        slides = this.find('.folio-pane');
-
-    slides.on('click', next);
-    this.find('.folio-arrow-right').on('click', next);
-    this.find('.folio-arrow-left').on('click', previous);
-    navbar.on('click', function(event) {
-        selectSlide(getNearestSlide((event.pageX-navbar.offset().left)/navbar.width()));
-    });
-    slider.on('mousedown', function() {
-        function moveHandler(event) {
-            var pos = (event.clientX-navbar.offset().left)/navbar.width(),
-                normedPos = Math.min(1, Math.max(0, pos));
-            slider.css('left', normedPos*100+'%');
-        }
-        var $window = $(window),
-            transition = PrefixFree.prefixCSS('transition:none').split(':');
-        slider.css(transition[0], transition[1]);
-        $window.on('mousemove', moveHandler);
-        $window.one('mouseup', function() {
-            selectSlide(getNearestSlide(parseInt(slider.css('left'))/navbar.width()));
-            slider.css(transition[0], "");
-            $window.off('mousemove', moveHandler)
+    };
+    $.fn.folio = function() {
+        this.each(function() {
+            new Folio($(this));
         });
-
-    });
-
-    updateSlider();
-    slides.eq(currentIndex).addClass(ACTIVE_CLS);
-};
+    };
+})(jQuery);
