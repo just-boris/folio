@@ -5,6 +5,7 @@
 }
 
 .folio-pane {
+    box-sizing: border-box;
     user-select: none;
     position: absolute;
     right: -100%;
@@ -15,6 +16,7 @@
 
 .folio-pane_active {
     right: 0;
+    z-index: 1;
 }
 
 .folio-vertical .folio-pane {
@@ -88,6 +90,7 @@
 
 .folio-rail {
     background: #fff;
+    border: 1px solid #ccc;
     border-radius: 0.5em;
     width: 100%;
     height: 0.3em;
@@ -97,6 +100,8 @@
 }
 
 .folio-slider {
+    user-select: none;
+    border: 1px solid #ccc;
     position: absolute;
     top: 0;
     width:  1em;

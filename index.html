@@ -3,48 +3,85 @@
 <head>
     <title>Folio.js - easy sliding!</title>
     <link rel="stylesheet" href="http://cdn.jsdelivr.net/normalize/2.1.2/normalize.css">
+    <link href="http://fonts.googleapis.com/css?family=Roboto&subset=latin,cyrillic" rel="stylesheet prefetch" type="text/css">
     <link rel="stylesheet" href="folio.css" />
-    <script src="prefixfree.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="folio.js"></script>
     <style type="text/css">
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        a {
+            color: #4183c4;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
         .folio {
             margin: 50px auto;
             width: 640px;
             height: 480px;
         }
+        .folio-pane {
+            border: 1px solid #c2c2c2;
+        }
+        .slide-text {
+            background: #FFF;
+            padding: 10%;
+        }
+        .slide-centered {
+            position: absolute;
+            width: 100%;
+            top:50%;
+            left: 0;
+            transform: translate(0, -50%);
+            text-align: center;
+        }
+        .slide-title {
+            text-align: center;
+        }
+        .slide-combined {
+            background-image: url(http://lorempixel.com/640/480/cats/?5);
+        }
+        .slide-combined-text {
+            padding: 1em;
+            background: rgba(255, 255, 255, 0.7);
+        }
+        .footer {
+            padding: 1em;
+            text-align: justify;
+        }
+        .pull-right {
+            float: right;
+        }
     </style>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('#demo1').folio();
-            $('#demo2').folio();
-        })
+            $('#demo1, #demo2').folio();
+        });
     </script>
 </head>
 <body>
     <div class="folio" id="demo1">
         <div class="folio-arrow folio-arrow-left"><i class="icon-chevron-left"></i></div>
-        <div class="folio-pane">
-            <img src="http://lorempixel.com/640/480/city/?1">
+        <div class="folio-pane slide-text">
+            <div class="slide-centered">
+                <h1 class="slide-title">Folio.js</h1>
+                <p>jQuery-плагин для презентаций</p>
+            </div>
         </div>
-        <div class="folio-pane">
-            <img src="http://lorempixel.com/640/480/city/?2">
+        <div class="folio-pane slide-text">
+            <h2 class="slide-title">Установка и настройка</h2>
+            <p>Для активации слайдов нужно подключить <a href="folio.js">скрипт</a>, заполнить элемент слайдами и вызвать
+                метод <code>folio()</code> для него.</p>
         </div>
-        <div class="folio-pane">
-            <img src="http://lorempixel.com/640/480/city/?3">
+        <div class="folio-pane slide-text slide-combined">
+            <div class="slide-combined-text">
+                <h2 class="slide-title">Готово!</h2>
+                <p>А когда все готово, можно посмотреть картинки с котиками :)</p>
+            </div>
         </div>
-        <div class="folio-pane">
-            <img src="http://lorempixel.com/640/480/city/?4">
-        </div>
-        <div class="folio-arrow folio-arrow-right"><i class="icon-chevron-right"></i></div>
-        <div class="folio-nav">
-            <div class="folio-rail"></div>
-            <div class="folio-slider"></div>
-        </div>
-    </div>
-
-    <div class="folio folio-vertical" id="demo2">
-        <div class="folio-arrow folio-arrow-left"><i class="icon-chevron-left"></i></div>
         <div class="folio-pane">
             <img src="http://lorempixel.com/640/480/cats/?1">
         </div>
@@ -63,5 +100,36 @@
             <div class="folio-slider"></div>
         </div>
     </div>
+
+    <div class="folio folio-vertical" id="demo2">
+        <div class="folio-arrow folio-arrow-left"><i class="icon-chevron-left"></i></div>
+        <div class="folio-pane slide-text">
+            <div class="slide-centered">
+                <h1 class="slide-title">Вертикальные слайды</h1>
+                <p>Для слайда картинок сверху вниз нужно добавить класс <code>folio-vertical</code> к контейнеру</p>
+            </div>
+        </div>
+        <div class="folio-pane">
+            <img src="http://lorempixel.com/640/480/city/?1">
+        </div>
+        <div class="folio-pane">
+            <img src="http://lorempixel.com/640/480/city/?2">
+        </div>
+        <div class="folio-pane">
+            <img src="http://lorempixel.com/640/480/city/?3">
+        </div>
+        <div class="folio-pane">
+            <img src="http://lorempixel.com/640/480/city/?4">
+        </div>
+        <div class="folio-arrow folio-arrow-right"><i class="icon-chevron-right"></i></div>
+        <div class="folio-nav">
+            <div class="folio-rail"></div>
+            <div class="folio-slider"></div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="pull-right"><a href="https://github.com/just-boris/folio">Код на Github</a></div>
+        <div>Автор: <a href="https://github.com/just-boris/">just-boris</a></div>
+    </footer>
 </body>
 </html>
