@@ -16,6 +16,8 @@
 
 .folio-pane_active {
     right: 0;
+}
+.folio-pane_sliding {
     z-index: 1;
 }
 
