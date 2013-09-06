@@ -92,16 +92,17 @@
             if(index === this.currentIndex) {
                 return;
             }
+            var slide;
             if((index - this.currentIndex) > 0) {
                 for(;this.currentIndex !== index;this.currentIndex++) {
-                    var slide = this.slides.eq(this.currentIndex+1);
+                    slide = this.slides.eq(this.currentIndex+1);
                     slide.addClass(ACTIVE_CLS);
                     keepClassWhileAnimate(slide, SLIDING_CLS);
                 }
             }
             else {
                 for(;this.currentIndex !== index;this.currentIndex--) {
-                    var slide = this.slides.eq(this.currentIndex);
+                    slide = this.slides.eq(this.currentIndex);
                     slide.removeClass(ACTIVE_CLS);
                     keepClassWhileAnimate(slide, SLIDING_CLS);
                 }
