@@ -68,4 +68,15 @@ describe("single carousel case", function() {
         elm.find(".folio-pane").eq(0).click();
         expectSlideSelected(1);
     });
+
+    it("should work key navigation", function() {
+        var event = new jQuery.Event("keydown");
+        event.keyCode = 34;
+        elm.trigger(event);
+        expectSlideSelected(1);
+        event = new jQuery.Event("keydown");
+        event.keyCode = 33;
+        elm.trigger(event);
+        expectSlideSelected(0);
+    });
 });

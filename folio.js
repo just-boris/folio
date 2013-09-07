@@ -1,4 +1,5 @@
 (function($) {
+    "use strict";
     /**
      * StyleFix 1.0.3 & PrefixFree 1.0.7
      * @author Lea Verou
@@ -38,6 +39,7 @@
 
         element.find('.folio-arrow-right').on('click', this.next.bind(this));
         element.find('.folio-arrow-left').on('click', this.previous.bind(this));
+        element.on('keydown', this.onKeydown.bind(this));
         this.slides.on('click', this.next.bind(this));
         this.navbar.on('click', function(event) {
             var slideIndex = this.getNearestSlide(
@@ -45,7 +47,7 @@
             );
             this.selectSlide(slideIndex);
         }.bind(this));
-        this.slider.on('mousedown', this.handleDragSlider.bind(this));
+        this.slider.on('mousedown', this.onDragSlider.bind(this));
 
         this.updateSlider();
         this.slides.eq(this.currentIndex).addClass(ACTIVE_CLS);
@@ -69,7 +71,23 @@
             this.slider.css('left', this.getSliderPosition(this.currentIndex)*100+"%");
         },
 
-        handleDragSlider: function() {
+        onKeydown: function(event) {
+            var keysToLeft = [33, 37, 38],
+                keysToRight = [34, 39, 40];
+            if(keysToLeft.indexOf(event.keyCode) !== -1) {
+                this.previous();
+                event.preventDefault();
+                return false;
+            }
+            else if(keysToRight.indexOf(event.keyCode) != -1) {
+                this.next();
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        },
+
+        onDragSlider: function() {
             function moveHandler(event) {
                 var pos = (event.pageX-self.navbar.offset().left)/self.navbar.width(),
                     normedPos = Math.min(1, Math.max(0, pos));
