@@ -1,16 +1,17 @@
-describe("single carousel case", function() {
-    var elm;
-    beforeEach(function() {
-        this.addMatchers({
-            toHaveClass: function(cls) {
-                this.message = function() {
-                    return "Expected element has " + (this.isNot ? "": "not ") + "class '" + cls + "'.";
-                };
-                return this.actual.hasClass(cls);
-            }
-        });
+beforeEach(function() {
+    "use strict";
+    this.addMatchers({
+        toHaveClass: function(cls) {
+            this.message = function() {
+                return "Expected element has " + (this.isNot ? "": "not ") + "class '" + cls + "'.";
+            };
+            return this.actual.hasClass(cls);
+        }
     });
-
+});
+describe("single carousel case", function() {
+    "use strict";
+    var elm;
     function expectSlideSelected(selectedIndex) {
         elm.find('.folio-pane').each(function(index) {
             if(index <= selectedIndex) {
@@ -78,5 +79,41 @@ describe("single carousel case", function() {
         event.keyCode = 33;
         elm.trigger(event);
         expectSlideSelected(0);
+    });
+});
+
+describe("multiple carousels", function() {
+    "use strict";
+    var elm;
+    beforeEach(function() {
+        elm = $('<div>'+
+            '<div class="folio first">' +
+                '<div class="folio-arrow folio-arrow-left"><i class="icon-chevron-left"></i></div>' +
+                '<div class="folio-pane"><p>first slide</p></div>' +
+                '<div class="folio-pane"><p>second slide</p></div>'+
+                '<div class="folio-arrow folio-arrow-right"><i class="icon-chevron-right"></i></div>'+
+                '<div class="folio-nav">'+
+                '<div class="folio-rail"></div>'+
+                '<div class="folio-slider"></div>'+
+                '</div>'+
+            '</div>'+
+            '<div class="folio second">' +
+                '<div class="folio-arrow folio-arrow-left"><i class="icon-chevron-left"></i></div>' +
+                '<div class="folio-pane"><p>first slide</p></div>' +
+                '<div class="folio-pane"><p>second slide</p></div>'+
+                '<div class="folio-arrow folio-arrow-right"><i class="icon-chevron-right"></i></div>'+
+                '<div class="folio-nav">'+
+                '<div class="folio-rail"></div>'+
+                '<div class="folio-slider"></div>'+
+                '</div>'+
+            '</div>'+
+        '</div>');
+        elm.find('.folio').folio();
+    });
+    it("should any carousel works separately", function() {
+        elm.find('.first .folio-arrow-right').click();
+        expect(elm.find('.second .folio-pane').eq(1)).not.toHaveClass('folio-pane_active');
+        elm.find('.second .folio-arrow-right').click();
+        expect(elm.find('.second .folio-pane').eq(1)).toHaveClass('folio-pane_active');
     });
 });
