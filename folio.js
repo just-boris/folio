@@ -124,5 +124,6 @@
         this.each(function() {
             new Folio($(this));
         });
+        return this;
     };
 })(jQuery);

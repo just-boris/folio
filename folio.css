@@ -1,6 +1,8 @@
 .folio {
     position: relative;
     overflow: hidden;
+    width: 640px;
+    height: 480px;
 }
 
 .folio-pane {
@@ -15,9 +17,10 @@
 
 .folio-pane_active {
     right: 0;
+    z-index: 1;
 }
 .folio-pane_sliding {
-    z-index: 1;
+    z-index: 2;
 }
 
 .folio-vertical .folio-pane {
